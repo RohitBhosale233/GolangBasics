@@ -22,14 +22,12 @@ type Student struct {
 var Students []Student
 
 func getAllStudents(w http.ResponseWriter, r *http.Request) {
-	
 	w.Header().Set("Content-Type", "application/json")
 	if Students != nil {
 		json.NewEncoder(w).Encode(Students)
 	} else {
 		json.NewEncoder(w).Encode("No students")
 	}
-
 }
 
 func getSingleStudent(w http.ResponseWriter, r *http.Request) {
@@ -43,15 +41,12 @@ func getSingleStudent(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	
 	w.Header().Set("Content-Type", "application/json")
 	if flag == 1 {
 		json.NewEncoder(w).Encode(stud)
 	} else {
 		json.NewEncoder(w).Encode("Student Not Found")
 	}
-
-
 }
 
 func delStudent(w http.ResponseWriter, r *http.Request) {
@@ -79,14 +74,11 @@ func addNewStudent(w http.ResponseWriter, r *http.Request) {
 	var student Student
 	json.Unmarshal(reqBody, &student)
 	Students = append(Students, student)
-
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(student)
 }
 
-
 func handleAllRequests() {
-
 	router := mux.NewRouter()
 	router.HandleFunc("/students", getAllStudents).Methods("GET")
 	router.HandleFunc("/students", addNewStudent).Methods("POST")
@@ -112,7 +104,6 @@ func main() {
 		{
 			uuid.New(),"XYZ",19,"C2","M2",
 		},
-
 	}
 	handleAllRequests()
 }
